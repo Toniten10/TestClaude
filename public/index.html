@@ -5,19 +5,383 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Hello World</title>
   <style>
-    html, body { height: 100%; margin: 0; }
-    body {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      background: #f5f5f5;
-      color: #222;
+    :root {
+      color-scheme: light;
+      --bg: #f5f5f4;
+      --surface-1: #fcfcfb;
+      --border: #e4e3df;
+      --grid: #ecebe7;
+      --text-primary: #0b0b0b;
+      --text-secondary: #52514e;
+      --text-muted: #7a7974;
+      --series-1: #2a78d6;
+      --up: #008300;
+      --down: #c62f2e;
     }
-    h1 { font-size: clamp(2rem, 8vw, 5rem); }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --bg: #121211;
+        --surface-1: #1a1a19;
+        --border: #2e2e2c;
+        --grid: #262624;
+        --text-primary: #f0efec;
+        --text-secondary: #c3c2b7;
+        --text-muted: #8f8e88;
+        --series-1: #3987e5;
+        --up: #4fb34f;
+        --down: #e66767;
+      }
+    }
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --bg: #121211;
+      --surface-1: #1a1a19;
+      --border: #2e2e2c;
+      --grid: #262624;
+      --text-primary: #f0efec;
+      --text-secondary: #c3c2b7;
+      --text-muted: #8f8e88;
+      --series-1: #3987e5;
+      --up: #4fb34f;
+      --down: #e66767;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.4;
+    }
+    main { max-width: 1040px; margin: 0 auto; padding: 32px 16px 48px; }
+    h1 { font-size: clamp(2rem, 6vw, 3.25rem); margin: 0 0 4px; }
+    .lede { color: var(--text-secondary); margin: 0 0 28px; }
+
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .card h2 { font-size: 1.05rem; margin: 0 0 2px; }
+    .card .sub { font-size: .85rem; color: var(--text-muted); margin: 0 0 14px; }
+    .headline { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+    .value { font-size: 1.9rem; font-weight: 650; font-variant-numeric: tabular-nums; }
+    .delta { font-size: .9rem; font-weight: 600; color: var(--text-secondary); }
+    .delta.up::before { content: "▲ "; color: var(--up); }
+    .delta.down::before { content: "▼ "; color: var(--down); }
+    .live { font-size: .75rem; color: var(--text-muted); }
+    .live::before {
+      content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--up); margin-right: 6px; vertical-align: middle;
+    }
+    .chart { position: relative; height: 280px; }
+    .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .pair h3 { font-size: .9rem; color: var(--text-secondary); margin: 0 0 4px; font-weight: 600; }
+    .pair .value { font-size: 1.5rem; }
+    .pair .chart { height: 240px; }
+    @media (max-width: 720px) { .pair { grid-template-columns: 1fr; } }
+
+    .status { color: var(--text-muted); font-size: .9rem; padding: 40px 0; text-align: center; }
+    details { margin-top: 12px; font-size: .85rem; color: var(--text-secondary); }
+    summary { cursor: pointer; }
+    table { border-collapse: collapse; margin-top: 8px; width: 100%; font-variant-numeric: tabular-nums; }
+    th, td { text-align: right; padding: 4px 8px; border-bottom: 1px solid var(--grid); }
+    th:first-child, td:first-child { text-align: left; }
+    footer { font-size: .8rem; color: var(--text-muted); }
+    footer a { color: inherit; }
   </style>
 </head>
 <body>
-  <h1>Hello World</h1>
+  <main>
+    <h1>Hello World</h1>
+    <p class="lede">Mercados de los últimos 12 meses.</p>
+
+    <section class="card" id="btc">
+      <h2>Bitcoin (BTC/USD)</h2>
+      <p class="sub">Precio diario, últimos 12 meses · el precio actual se actualiza cada minuto</p>
+      <div class="headline">
+        <span class="value" data-role="value">—</span>
+        <span class="delta" data-role="delta"></span>
+        <span class="live" data-role="live" hidden>En vivo</span>
+      </div>
+      <div class="chart"><canvas aria-label="Precio de Bitcoin en dólares, últimos 12 meses" role="img"></canvas></div>
+      <details><summary>Ver datos mensuales</summary><div data-role="table"></div></details>
+    </section>
+
+    <section class="card" id="fx">
+      <h2>Dólar a peso mexicano (USD/MXN)</h2>
+      <p class="sub">Tipo de cambio diario de referencia del Banco Central Europeo, últimos 12 meses</p>
+      <div class="headline">
+        <span class="value" data-role="value">—</span>
+        <span class="delta" data-role="delta"></span>
+      </div>
+      <div class="chart"><canvas aria-label="Tipo de cambio dólar a peso mexicano, últimos 12 meses" role="img"></canvas></div>
+      <details><summary>Ver datos mensuales</summary><div data-role="table"></div></details>
+    </section>
+
+    <section class="card" id="gold">
+      <h2>Oro (1 onza troy)</h2>
+      <p class="sub">Precio diario, últimos 12 meses · medido con PAX Gold (PAXG), un token respaldado 1:1 por oro físico</p>
+      <div class="pair">
+        <div id="gold-usd">
+          <h3>En dólares (USD)</h3>
+          <div class="headline">
+            <span class="value" data-role="value">—</span>
+            <span class="delta" data-role="delta"></span>
+          </div>
+          <div class="chart"><canvas aria-label="Precio del oro en dólares, últimos 12 meses" role="img"></canvas></div>
+          <details><summary>Ver datos mensuales</summary><div data-role="table"></div></details>
+        </div>
+        <div id="gold-mxn">
+          <h3>En pesos mexicanos (MXN)</h3>
+          <div class="headline">
+            <span class="value" data-role="value">—</span>
+            <span class="delta" data-role="delta"></span>
+          </div>
+          <div class="chart"><canvas aria-label="Precio del oro en pesos mexicanos, últimos 12 meses" role="img"></canvas></div>
+          <details><summary>Ver datos mensuales</summary><div data-role="table"></div></details>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Datos: <a href="https://www.coingecko.com" target="_blank" rel="noopener">CoinGecko</a> (Bitcoin y oro) ·
+      <a href="https://frankfurter.dev" target="_blank" rel="noopener">Frankfurter</a> (tipo de cambio).
+    </footer>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script>
+    const DAY = 86400000;
+    const css = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    const charts = [];
+
+    const fmt = {
+      usd: (v, d = 0) => v.toLocaleString("es-MX", { style: "currency", currency: "USD", maximumFractionDigits: d, minimumFractionDigits: d }),
+      mxn: (v, d = 0) => v.toLocaleString("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: d, minimumFractionDigits: d }) + " MXN",
+      rate: (v) => "$" + v.toLocaleString("es-MX", { minimumFractionDigits: 4, maximumFractionDigits: 4 }) + " MXN",
+    };
+    const shortDate = new Intl.DateTimeFormat("es-MX", { month: "short", year: "2-digit" });
+    const longDate = new Intl.DateTimeFormat("es-MX", { day: "numeric", month: "short", year: "numeric" });
+
+    async function getJSON(url) {
+      const res = await fetch(url);
+      if (!res.ok) throw new Error(res.status + " " + url);
+      return res.json();
+    }
+
+    // CoinGecko devuelve [[timestamp, precio], ...]; nos quedamos con un punto por día.
+    async function coingecko(coin, currency) {
+      const data = await getJSON(`https://api.coingecko.com/api/v3/coins/${coin}/market_chart?vs_currency=${currency}&days=365&interval=daily`);
+      return data.prices.map(([t, v]) => ({ t, v }));
+    }
+
+    async function frankfurter() {
+      const start = new Date(Date.now() - 365 * DAY).toISOString().slice(0, 10);
+      const urls = [
+        `https://api.frankfurter.dev/v1/${start}..?base=USD&symbols=MXN`,
+        `https://api.frankfurter.app/${start}..?from=USD&to=MXN`,
+      ];
+      let lastErr;
+      for (const url of urls) {
+        try {
+          const data = await getJSON(url);
+          return Object.entries(data.rates)
+            .map(([d, r]) => ({ t: Date.parse(d + "T12:00:00Z"), v: r.MXN }))
+            .sort((a, b) => a.t - b.t);
+        } catch (e) { lastErr = e; }
+      }
+      throw lastErr;
+    }
+
+    function setHeadline(root, points, format) {
+      const first = points[0].v, last = points[points.length - 1].v;
+      const pct = (last / first - 1) * 100;
+      root.querySelector('[data-role="value"]').textContent = format(last);
+      const delta = root.querySelector('[data-role="delta"]');
+      delta.className = "delta " + (pct >= 0 ? "up" : "down");
+      delta.textContent = `${pct >= 0 ? "+" : ""}${pct.toFixed(1)}% en 12 meses`;
+    }
+
+    function renderTable(root, points, format) {
+      const byMonth = new Map();
+      for (const p of points) {
+        const d = new Date(p.t);
+        byMonth.set(d.getFullYear() * 12 + d.getMonth(), p); // último dato de cada mes
+      }
+      const rows = [...byMonth.values()].map(p =>
+        `<tr><td>${longDate.format(p.t)}</td><td>${format(p.v)}</td></tr>`).join("");
+      root.querySelector('[data-role="table"]').innerHTML =
+        `<table><thead><tr><th>Fecha</th><th>Precio</th></tr></thead><tbody>${rows}</tbody></table>`;
+    }
+
+    function lineChart(root, points, format, tickFormat) {
+      const canvas = root.querySelector("canvas");
+      const chart = new Chart(canvas, {
+        type: "line",
+        data: {
+          labels: points.map(p => p.t),
+          datasets: [{
+            data: points.map(p => p.v),
+            borderWidth: 2,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBorderWidth: 2,
+            tension: 0.15,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          animation: false,
+          interaction: { mode: "index", intersect: false },
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              displayColors: false,
+              callbacks: {
+                title: (items) => longDate.format(items[0].chart.data.labels[items[0].dataIndex]),
+                label: (item) => format(item.parsed.y),
+              },
+            },
+          },
+          scales: {
+            x: {
+              grid: { display: false },
+              border: { display: false },
+              ticks: {
+                maxRotation: 0, autoSkip: true, maxTicksLimit: 7,
+                callback: function (v) { return shortDate.format(this.getLabelForValue(v)); },
+              },
+            },
+            y: {
+              grid: {},
+              border: { display: false },
+              ticks: { maxTicksLimit: 5, callback: tickFormat },
+            },
+          },
+        },
+        plugins: [{
+          // Línea vertical (crosshair) bajo el cursor.
+          id: "crosshair",
+          afterDatasetsDraw(c) {
+            const active = c.tooltip?.getActiveElements?.() || [];
+            if (!active.length) return;
+            const x = active[0].element.x, { top, bottom } = c.chartArea, ctx = c.ctx;
+            ctx.save();
+            ctx.strokeStyle = css("--text-muted");
+            ctx.lineWidth = 1;
+            ctx.setLineDash([3, 3]);
+            ctx.beginPath(); ctx.moveTo(x, top); ctx.lineTo(x, bottom); ctx.stroke();
+            ctx.restore();
+          },
+        }],
+      });
+      charts.push(chart);
+      applyTheme(chart);
+      return chart;
+    }
+
+    function applyTheme(chart) {
+      const series = css("--series-1");
+      const ds = chart.data.datasets[0];
+      ds.borderColor = series;
+      ds.pointHoverBackgroundColor = series;
+      ds.pointHoverBorderColor = css("--surface-1");
+      const s = chart.options.scales;
+      s.x.ticks.color = s.y.ticks.color = css("--text-muted");
+      s.y.grid.color = css("--grid");
+      const tt = chart.options.plugins.tooltip;
+      tt.backgroundColor = css("--text-primary");
+      tt.titleColor = tt.bodyColor = css("--surface-1");
+      chart.update("none");
+    }
+
+    function showError(root, msg) {
+      root.querySelector(".chart").innerHTML = `<div class="status">${msg}</div>`;
+    }
+
+    const compact = (prefix) => (v) => prefix + Intl.NumberFormat("es-MX", { notation: "compact", maximumFractionDigits: 1 }).format(v);
+
+    async function loadBitcoin() {
+      const root = document.getElementById("btc");
+      try {
+        const points = await coingecko("bitcoin", "usd");
+        setHeadline(root, points, fmt.usd);
+        renderTable(root, points, fmt.usd);
+        const chart = lineChart(root, points, fmt.usd, compact("$"));
+        startLiveBitcoin(root, chart, points);
+      } catch (e) {
+        console.error(e);
+        showError(root, "No se pudieron cargar los datos de Bitcoin. Intenta recargar en un momento.");
+      }
+    }
+
+    // Precio en vivo: actualiza el titular y el último punto de la gráfica cada 60 s.
+    function startLiveBitcoin(root, chart, points) {
+      const live = root.querySelector('[data-role="live"]');
+      const tick = async () => {
+        try {
+          const data = await getJSON("https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd");
+          const price = data.bitcoin.usd;
+          points[points.length - 1] = { t: Date.now(), v: price };
+          chart.data.labels[chart.data.labels.length - 1] = Date.now();
+          chart.data.datasets[0].data[points.length - 1] = price;
+          chart.update("none");
+          setHeadline(root, points, fmt.usd);
+          live.hidden = false;
+          live.textContent = "En vivo · " + new Date().toLocaleTimeString("es-MX", { hour: "2-digit", minute: "2-digit" });
+        } catch (e) {
+          console.warn(e);
+        }
+      };
+      tick();
+      setInterval(tick, 60000);
+    }
+
+    async function loadFx() {
+      const root = document.getElementById("fx");
+      try {
+        const points = await frankfurter();
+        setHeadline(root, points, fmt.rate);
+        renderTable(root, points, fmt.rate);
+        lineChart(root, points, fmt.rate, (v) => "$" + v.toFixed(2));
+      } catch (e) {
+        console.error(e);
+        showError(root, "No se pudo cargar el tipo de cambio. Intenta recargar en un momento.");
+      }
+    }
+
+    async function loadGold(currency, id, format, tick) {
+      const root = document.getElementById(id);
+      try {
+        const points = await coingecko("pax-gold", currency);
+        setHeadline(root, points, format);
+        renderTable(root, points, format);
+        lineChart(root, points, format, tick);
+      } catch (e) {
+        console.error(e);
+        showError(root, "No se pudo cargar el precio del oro. Intenta recargar en un momento.");
+      }
+    }
+
+    // Las peticiones a CoinGecko van una tras otra para no chocar con su límite gratuito.
+    (async () => {
+      loadFx();
+      await loadBitcoin();
+      await loadGold("usd", "gold-usd", fmt.usd, compact("$"));
+      await loadGold("mxn", "gold-mxn", fmt.mxn, compact("$"));
+    })();
+
+    // Si cambia el tema del sistema, se recolorean las gráficas.
+    const mq = matchMedia("(prefers-color-scheme: dark)");
+    mq.addEventListener?.("change", () => charts.forEach(applyTheme));
+    new MutationObserver(() => charts.forEach(applyTheme))
+      .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  </script>
 </body>
 </html>
