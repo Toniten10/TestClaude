@@ -9,30 +9,30 @@
   // est: precio estimado solo para el cálculo cuando no hay precio publicado.
   // ---------------------------------------------------------------------------
   const MODELS = [
-    { id: "118i", name: "BMW 118i", line: "Serie 1", body: "hatch", power: "gas", fam: [1], price: 799900, tagline: "Compacto, ágil y hecho para la ciudad." },
-    { id: "218gc", name: "BMW 218 Gran Coupé", line: "Serie 2", body: "sedan", power: "gas", fam: [2], price: 849900, tagline: "Silueta de coupé con cuatro puertas." },
-    { id: "220i", name: "BMW 220i Coupé", line: "Serie 2", body: "coupe", power: "gas", fam: [2], price: 925900, tagline: "Tracción trasera y manejo puro." },
-    { id: "m2", name: "BMW M2 Coupé", line: "BMW M", body: "coupe", power: "gas", m: true, fam: [2], price: 1764900, tagline: "El M más compacto y el más salvaje." },
-    { id: "x1", name: "BMW X1 sDrive18i", line: "X1", body: "suv", power: "gas", fam: [1], price: 969900, tagline: "La SUV que va contigo a todos lados." },
-    { id: "ix1", name: "BMW iX1", line: "BMW i", body: "suv", power: "ev", fam: [1, 0], price: null, est: 1250000, tagline: "SUV compacta 100% eléctrica." },
-    { id: "x2", name: "BMW X2", line: "X2", body: "suvcoupe", power: "gas", fam: [2], price: null, est: 1100000, tagline: "SUV con caída de coupé y mucha actitud." },
-    { id: "320i", name: "BMW 320i", line: "Serie 3", body: "sedan", power: "gas", fam: [3], price: 1002900, tagline: "El sedán deportivo de referencia." },
-    { id: "330e", name: "BMW 330e", line: "Serie 3", body: "sedan", power: "phev", fam: [3], price: 1319900, tagline: "Híbrido conectable: eléctrico entre semana, gasolina en carretera." },
-    { id: "m340i", name: "BMW M340i xDrive", line: "Serie 3", body: "sedan", power: "gas", m: true, fam: [3], price: 1439900, tagline: "Seis cilindros en línea con tracción total." },
-    { id: "m3", name: "BMW M3 Competition", line: "BMW M", body: "sedan", power: "gas", m: true, fam: [3], price: 2214900, tagline: "Un sedán familiar con alma de pista." },
-    { id: "x3", name: "BMW X3", line: "X3", body: "suv", power: "gas", fam: [3], price: 1194900, tagline: "La SUV mediana más equilibrada de la gama." },
-    { id: "430i", name: "BMW 430i Coupé", line: "Serie 4", body: "coupe", power: "gas", fam: [4], price: 1219900, tagline: "Elegancia de dos puertas para el día a día." },
-    { id: "m440i-cab", name: "BMW M440i xDrive Convertible", line: "Serie 4", body: "convertible", power: "gas", m: true, fam: [4], price: 1770900, tagline: "Capota abierta y seis cilindros." },
-    { id: "i4", name: "BMW i4 eDrive40", line: "BMW i", body: "sedan", power: "ev", fam: [4, 0], price: 1480000, tagline: "Gran Coupé eléctrico, silencioso y rápido." },
-    { id: "z4", name: "BMW Z4 M40i", line: "Z4", body: "roadster", power: "gas", m: true, fam: [4], price: 1525000, tagline: "Roadster de dos plazas para las curvas." },
-    { id: "i5", name: "BMW i5 eDrive40", line: "BMW i", body: "sedan", power: "ev", fam: [5, 0], price: 1599900, tagline: "Ejecutivo y totalmente eléctrico." },
-    { id: "x5", name: "BMW X5", line: "X5", body: "suv", power: "gas", fam: [5], price: 1694900, tagline: "La SUV grande que lo hace todo bien." },
-    { id: "x6", name: "BMW X6", line: "X6", body: "suvcoupe", power: "gas", fam: [6], price: null, est: 2300000, tagline: "La SUV coupé original, imposible de ignorar." },
-    { id: "750e", name: "BMW 750e xDrive", line: "Serie 7", body: "sedan", power: "phev", fam: [7], price: 2730900, tagline: "Lujo de primera clase con motor híbrido." },
-    { id: "x7", name: "BMW X7", line: "X7", body: "suv", power: "gas", fam: [7], price: null, est: 2800000, tagline: "Tres filas de asientos y presencia total." },
-    { id: "m850i", name: "BMW M850i xDrive Gran Coupé", line: "Serie 8", body: "coupe", power: "gas", m: true, fam: [8], price: 2504900, tagline: "V8, cuatro puertas y gran turismo." },
-    { id: "ix", name: "BMW iX xDrive45", line: "BMW i", body: "suv", power: "ev", fam: [9, 0], price: 1799900, tagline: "El buque insignia eléctrico de BMW." },
-    { id: "xm", name: "BMW XM", line: "BMW M", body: "suvcoupe", power: "phev", m: true, fam: [9], price: 4204900, tagline: "La SUV M más extrema, híbrida y de 600+ hp." },
+    { id: "118i", wiki: ["BMW 1 Series (F70)", "BMW 1 Series"], name: "BMW 118i", line: "Serie 1", body: "hatch", power: "gas", fam: [1], price: 799900, tagline: "Compacto, ágil y hecho para la ciudad." },
+    { id: "218gc", wiki: ["BMW 2 Series Gran Coupé", "BMW 2 Series"], name: "BMW 218 Gran Coupé", line: "Serie 2", body: "sedan", power: "gas", fam: [2], price: 849900, tagline: "Silueta de coupé con cuatro puertas." },
+    { id: "220i", wiki: ["BMW 2 Series (G42)", "BMW 2 Series"], name: "BMW 220i Coupé", line: "Serie 2", body: "coupe", power: "gas", fam: [2], price: 925900, tagline: "Tracción trasera y manejo puro." },
+    { id: "m2", wiki: ["BMW M2 (G87)", "BMW M2"], name: "BMW M2 Coupé", line: "BMW M", body: "coupe", power: "gas", m: true, fam: [2], price: 1764900, tagline: "El M más compacto y el más salvaje." },
+    { id: "x1", wiki: ["BMW X1 (U11)", "BMW X1"], name: "BMW X1 sDrive18i", line: "X1", body: "suv", power: "gas", fam: [1], price: 969900, tagline: "La SUV que va contigo a todos lados." },
+    { id: "ix1", wiki: ["BMW iX1", "BMW X1 (U11)"], name: "BMW iX1", line: "BMW i", body: "suv", power: "ev", fam: [1, 0], price: null, est: 1250000, tagline: "SUV compacta 100% eléctrica." },
+    { id: "x2", wiki: ["BMW X2 (U10)", "BMW X2"], name: "BMW X2", line: "X2", body: "suvcoupe", power: "gas", fam: [2], price: null, est: 1100000, tagline: "SUV con caída de coupé y mucha actitud." },
+    { id: "320i", wiki: ["BMW 3 Series (G20)", "BMW 3 Series"], name: "BMW 320i", line: "Serie 3", body: "sedan", power: "gas", fam: [3], price: 1002900, tagline: "El sedán deportivo de referencia." },
+    { id: "330e", wiki: ["BMW 3 Series (G20)", "BMW 3 Series"], name: "BMW 330e", line: "Serie 3", body: "sedan", power: "phev", fam: [3], price: 1319900, tagline: "Híbrido conectable: eléctrico entre semana, gasolina en carretera." },
+    { id: "m340i", wiki: ["BMW 3 Series (G20)", "BMW 3 Series"], name: "BMW M340i xDrive", line: "Serie 3", body: "sedan", power: "gas", m: true, fam: [3], price: 1439900, tagline: "Seis cilindros en línea con tracción total." },
+    { id: "m3", wiki: ["BMW M3 (G80)", "BMW M3"], name: "BMW M3 Competition", line: "BMW M", body: "sedan", power: "gas", m: true, fam: [3], price: 2214900, tagline: "Un sedán familiar con alma de pista." },
+    { id: "x3", wiki: ["BMW X3 (G45)", "BMW X3"], name: "BMW X3", line: "X3", body: "suv", power: "gas", fam: [3], price: 1194900, tagline: "La SUV mediana más equilibrada de la gama." },
+    { id: "430i", wiki: ["BMW 4 Series (G22)", "BMW 4 Series"], name: "BMW 430i Coupé", line: "Serie 4", body: "coupe", power: "gas", fam: [4], price: 1219900, tagline: "Elegancia de dos puertas para el día a día." },
+    { id: "m440i-cab", wiki: ["BMW 4 Series (G22)", "BMW 4 Series"], name: "BMW M440i xDrive Convertible", line: "Serie 4", body: "convertible", power: "gas", m: true, fam: [4], price: 1770900, tagline: "Capota abierta y seis cilindros." },
+    { id: "i4", wiki: ["BMW i4"], name: "BMW i4 eDrive40", line: "BMW i", body: "sedan", power: "ev", fam: [4, 0], price: 1480000, tagline: "Gran Coupé eléctrico, silencioso y rápido." },
+    { id: "z4", wiki: ["BMW Z4 (G29)", "BMW Z4"], name: "BMW Z4 M40i", line: "Z4", body: "roadster", power: "gas", m: true, fam: [4], price: 1525000, tagline: "Roadster de dos plazas para las curvas." },
+    { id: "i5", wiki: ["BMW 5 Series (G60)", "BMW 5 Series"], name: "BMW i5 eDrive40", line: "BMW i", body: "sedan", power: "ev", fam: [5, 0], price: 1599900, tagline: "Ejecutivo y totalmente eléctrico." },
+    { id: "x5", wiki: ["BMW X5 (G05)", "BMW X5"], name: "BMW X5", line: "X5", body: "suv", power: "gas", fam: [5], price: 1694900, tagline: "La SUV grande que lo hace todo bien." },
+    { id: "x6", wiki: ["BMW X6 (G06)", "BMW X6"], name: "BMW X6", line: "X6", body: "suvcoupe", power: "gas", fam: [6], price: null, est: 2300000, tagline: "La SUV coupé original, imposible de ignorar." },
+    { id: "750e", wiki: ["BMW 7 Series (G70)", "BMW 7 Series"], name: "BMW 750e xDrive", line: "Serie 7", body: "sedan", power: "phev", fam: [7], price: 2730900, tagline: "Lujo de primera clase con motor híbrido." },
+    { id: "x7", wiki: ["BMW X7"], name: "BMW X7", line: "X7", body: "suv", power: "gas", fam: [7], price: null, est: 2800000, tagline: "Tres filas de asientos y presencia total." },
+    { id: "m850i", wiki: ["BMW 8 Series (G15)", "BMW 8 Series"], name: "BMW M850i xDrive Gran Coupé", line: "Serie 8", body: "coupe", power: "gas", m: true, fam: [8], price: 2504900, tagline: "V8, cuatro puertas y gran turismo." },
+    { id: "ix", wiki: ["BMW iX"], name: "BMW iX xDrive45", line: "BMW i", body: "suv", power: "ev", fam: [9, 0], price: 1799900, tagline: "El buque insignia eléctrico de BMW." },
+    { id: "xm", wiki: ["BMW XM"], name: "BMW XM", line: "BMW M", body: "suvcoupe", power: "phev", m: true, fam: [9], price: 4204900, tagline: "La SUV M más extrema, híbrida y de 600+ hp." },
   ];
 
   const COLORS = [
@@ -267,6 +267,48 @@
 </svg>`;
   }
 
+
+  // ---------------------------------------------------------------------------
+  // Fotos reales: la imagen principal del artículo de Wikipedia de cada modelo
+  // (fotos libres de Wikimedia Commons). Una sola petición trae todas.
+  // Si no hay foto, se usa la silueta dibujada.
+  // ---------------------------------------------------------------------------
+  let photosPromise = null;
+  function loadPhotos() {
+    if (photosPromise) return photosPromise;
+    const titles = [...new Set(MODELS.flatMap((m) => m.wiki))];
+    const url = "https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&origin=*" +
+      "&prop=pageimages&piprop=thumbnail|name&pithumbsize=1200&redirects=1&titles=" +
+      encodeURIComponent(titles.join("|"));
+    photosPromise = fetch(url)
+      .then((r) => r.json())
+      .then((data) => {
+        const q = data.query || {};
+        const alias = new Map();
+        for (const n of q.normalized || []) alias.set(n.from, n.to);
+        for (const r of q.redirects || []) alias.set(r.from, r.to);
+        const resolve = (t) => { let x = t, i = 0; while (alias.has(x) && i++ < 4) x = alias.get(x); return x; };
+        const pages = new Map((q.pages || []).map((pg) => [pg.title, pg]));
+        const photos = new Map();
+        for (const m of MODELS) {
+          for (const t of m.wiki) {
+            const pg = pages.get(resolve(t));
+            if (pg && pg.thumbnail && pg.pageimage) {
+              photos.set(m.id, {
+                src: pg.thumbnail.source,
+                file: "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(pg.pageimage),
+                article: "https://en.wikipedia.org/wiki/" + encodeURIComponent(pg.title.replace(/ /g, "_")),
+              });
+              break;
+            }
+          }
+        }
+        return photos;
+      })
+      .catch((e) => { console.warn("Fotos no disponibles", e); return new Map(); });
+    return photosPromise;
+  }
+
   // ---------------------------------------------------------------------------
   // Bóveda: el rin se gira arrastrando o con el botón; dos vueltas la abren.
   // ---------------------------------------------------------------------------
@@ -303,6 +345,7 @@
     opened = true;
     progress.style.strokeDashoffset = 0;
     vault.classList.add("open");
+    loadPhotos();
     setTimeout(() => {
       vault.hidden = true;
       quiz.hidden = false;
@@ -428,16 +471,45 @@
   const whyList = result.querySelector(".why");
   const altRow = result.querySelector(".alts .row");
 
-  function showCar(car) {
-    stage.innerHTML = carSVG(car, chosen.hex);
-    const g = stage.querySelector(".car");
+  let showToken = 0;
+  async function showCar(car) {
+    const token = ++showToken;
     info.innerHTML = `
       <div class="match">Tu BMW ideal</div>
       <h3>${car.name}</h3>
       <p class="meta">${car.line} · ${BODY_LABEL[car.body]} · ${POWER_LABEL[car.power]}</p>
       <p class="meta">${car.tagline}</p>
       <p class="price">${car.price ? "Desde " + money(car.price) : "Precio por confirmar con distribuidor"}</p>
-      <span class="paint-chip" style="--c:${chosen.hex}"><i></i>${chosen.name}</span>`;
+      <span class="paint-chip" style="--c:${chosen.hex}"><i></i>Tu color favorito: ${chosen.name}</span>`;
+    stage.innerHTML = `<div class="photo-wait" aria-hidden="true"></div>`;
+    const photo = (await loadPhotos()).get(car.id);
+    if (token !== showToken) return;
+    if (photo) {
+      const img = new Image();
+      img.alt = car.name;
+      img.decoding = "async";
+      img.src = photo.src;
+      try { await img.decode(); } catch { return token === showToken && showSilhouette(car); }
+      if (token !== showToken) return;
+      stage.innerHTML = `
+        <figure class="photo">
+          <div class="photo-frame"></div>
+          <figcaption>Foto de referencia del modelo: <a href="${photo.file}" target="_blank" rel="noopener">Wikimedia Commons</a>
+            (autor y licencia en el enlace) · el color y la versión pueden variar.</figcaption>
+        </figure>`;
+      const frame = stage.querySelector(".photo-frame");
+      frame.append(img);
+      if (reduceMotion) { frame.classList.add("in"); return; }
+      frame.getBoundingClientRect();
+      frame.classList.add("in");
+    } else {
+      showSilhouette(car);
+    }
+  }
+
+  function showSilhouette(car) {
+    stage.innerHTML = carSVG(car, chosen.hex);
+    const g = stage.querySelector(".car");
     if (reduceMotion) { g.classList.add("in"); return; }
     g.getBoundingClientRect();
     g.classList.add("in", "rolling");
