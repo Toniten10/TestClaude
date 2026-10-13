@@ -110,11 +110,47 @@
     .notes li { margin-bottom: 4px; }
     .notes a { color: inherit; }
   </style>
+  <link rel="stylesheet" href="bmw.css">
 </head>
 <body>
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <radialGradient id="rim-face" cx=".35" cy=".3" r=".9">
+        <stop offset="0" stop-color="#f4f6f8"/><stop offset=".45" stop-color="#b8bec6"/><stop offset="1" stop-color="#5d636b"/>
+      </radialGradient>
+      <linearGradient id="rim-spoke" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#eef1f4"/><stop offset=".5" stop-color="#a9b0b8"/><stop offset="1" stop-color="#6c727a"/>
+      </linearGradient>
+      <radialGradient id="rim-disc" cx=".5" cy=".5" r=".5">
+        <stop offset=".55" stop-color="#2b2e33"/><stop offset=".8" stop-color="#4a4e55"/><stop offset="1" stop-color="#1c1e22"/>
+      </radialGradient>
+      <symbol id="bmw-rim" viewBox="-100 -100 200 200">
+        <circle r="99" fill="#121315"/>
+        <circle r="93" fill="none" stroke="#1d1f22" stroke-width="5"/>
+        <circle r="96" fill="none" stroke="#2a2c30" stroke-width="1" stroke-dasharray="3 5"/>
+        <circle r="82" fill="url(#rim-face)"/>
+        <circle r="77" fill="#0c0d0f"/>
+        <circle r="62" fill="url(#rim-disc)"/>
+        <circle r="62" fill="none" stroke="#5a5f66" stroke-width="1" stroke-dasharray="1 4"/>
+        <g fill="url(#rim-spoke)" stroke="#4b5057" stroke-width=".6">
+          <polygon points="-8.04,-22.01 -15.81,-58.24 -20.93,-74.64 -3.16,-77.46 -2.97,-60.28 0.85,-23.42"/><polygon points="-0.85,-23.42 2.97,-60.28 3.16,-77.46 20.93,-74.64 15.81,-58.24 8.04,-22.01"/><polygon points="18.45,-14.45 50.51,-33.03 64.52,-42.98 72.69,-26.94 56.41,-21.45 22.54,-6.43"/><polygon points="22.01,-8.04 58.24,-15.81 74.64,-20.93 77.46,-3.16 60.28,-2.97 23.42,0.85"/><polygon points="19.45,13.08 47.02,37.83 60.81,48.08 48.08,60.81 37.83,47.02 13.08,19.45"/><polygon points="14.45,18.45 33.03,50.51 42.98,64.52 26.94,72.69 21.45,56.41 6.43,22.54"/><polygon points="-6.43,22.54 -21.45,56.41 -26.94,72.69 -42.98,64.52 -33.03,50.51 -14.45,18.45"/><polygon points="-13.08,19.45 -37.83,47.02 -48.08,60.81 -60.81,48.08 -47.02,37.83 -19.45,13.08"/><polygon points="-23.42,0.85 -60.28,-2.97 -77.46,-3.16 -74.64,-20.93 -58.24,-15.81 -22.01,-8.04"/><polygon points="-22.54,-6.43 -56.41,-21.45 -72.69,-26.94 -64.52,-42.98 -50.51,-33.03 -18.45,-14.45"/>
+        </g>
+        <circle r="24" fill="url(#rim-face)" stroke="#4b5057" stroke-width=".8"/>
+        <circle cx="8.23" cy="-11.33" r="2.6" fill="#3a3d42" stroke="#9aa0a8" stroke-width=".8"/><circle cx="13.31" cy="4.33" r="2.6" fill="#3a3d42" stroke="#9aa0a8" stroke-width=".8"/><circle cx="0.00" cy="14.00" r="2.6" fill="#3a3d42" stroke="#9aa0a8" stroke-width=".8"/><circle cx="-13.31" cy="4.33" r="2.6" fill="#3a3d42" stroke="#9aa0a8" stroke-width=".8"/><circle cx="-8.23" cy="-11.33" r="2.6" fill="#3a3d42" stroke="#9aa0a8" stroke-width=".8"/>
+        <circle r="8.5" fill="#16181b" stroke="#c9ced4" stroke-width="1.2"/>
+        <circle r="3" fill="#c9ced4"/>
+        <circle r="80" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width=".8"/>
+      </symbol>
+      <clipPath id="vault-left"><rect x="-130" y="-130" width="130" height="260"/></clipPath>
+      <clipPath id="vault-right"><rect x="0" y="-130" width="130" height="260"/></clipPath>
+      <radialGradient id="vault-glow" cx=".5" cy=".5" r=".5">
+        <stop offset="0" stop-color="#9cc4ff" stop-opacity=".9"/><stop offset=".4" stop-color="#2f7de1" stop-opacity=".35"/><stop offset="1" stop-color="#2f7de1" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+  </svg>
   <main>
     <h1>Hello World</h1>
-    <p class="lede">Mercados de los últimos 12 meses y el panorama de la educación en IA.</p>
+    <p class="lede">Mercados de los últimos 12 meses, tu BMW ideal y el panorama de la educación en IA.</p>
 
     <section class="card" id="btc">
       <h2>Bitcoin (BTC/USD)</h2>
@@ -162,6 +198,73 @@
           <details><summary>Ver datos mensuales</summary><div data-role="table"></div></details>
         </div>
       </div>
+    </section>
+
+    <section class="card showroom" id="bmw" aria-labelledby="bmw-title">
+      <div class="sr-head">
+        <p class="eyebrow">Selector BMW · Gama México 2026</p>
+        <h2 id="bmw-title">Encuentra tu BMW ideal</h2>
+        <p>Gira el rin dos vueltas para abrir la bóveda.</p>
+      </div>
+      <div class="sr-stage">
+        <div class="vault">
+          <svg class="vault-svg" viewBox="-130 -130 260 260" tabindex="0" role="img"
+               aria-label="Rin con forma de bóveda. Arrástralo en círculo o usa las flechas del teclado para girarlo.">
+            <circle class="glow" r="128" fill="url(#vault-glow)"/>
+            <g class="dial" stroke="#3a404b" stroke-width="1.5"><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(0)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(10)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(20)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(30)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(40)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(50)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(60)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(70)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(80)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(90)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(100)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(110)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(120)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(130)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(140)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(150)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(160)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(170)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(180)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(190)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(200)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(210)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(220)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(230)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(240)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(250)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(260)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(270)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(280)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(290)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(300)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(310)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(320)"/><line x1="0" y1="-104" x2="0" y2="-114" transform="rotate(330)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(340)"/><line x1="0" y1="-108" x2="0" y2="-114" transform="rotate(350)"/></g>
+            <circle r="112" fill="none" stroke="#1e232c" stroke-width="3"/>
+            <circle class="progress" r="112" fill="none" stroke="#2f7de1" stroke-width="3" stroke-linecap="round" transform="rotate(-90)"/>
+            <path class="dial" d="M0,-121 L-6,-129 L6,-129 Z" fill="#f2f3f5"/>
+            <g class="half left" clip-path="url(#vault-left)"><g class="spin"><use href="#bmw-rim" x="-100" y="-100" width="200" height="200"/></g></g>
+            <g class="half right" clip-path="url(#vault-right)"><g class="spin"><use href="#bmw-rim" x="-100" y="-100" width="200" height="200"/></g></g>
+          </svg>
+          <button type="button" class="sr-btn" id="spinBtn">Girar el rin</button>
+          <p class="hint">o arrástralo en círculo con el dedo o el ratón</p>
+        </div>
+
+        <div class="quiz" hidden>
+          <div class="steps"><span></span><span></span><span></span></div>
+          <div class="q">
+            <div class="q-num">Pregunta 1 de 3</div>
+            <h3><label for="fav-number">¿Cuál es tu número favorito?</label></h3>
+            <input id="fav-number" type="number" inputmode="numeric" min="0" max="999999" placeholder="7">
+          </div>
+          <div class="q">
+            <div class="q-num">Pregunta 2 de 3</div>
+            <h3><label for="birth">¿Cuándo naciste?</label></h3>
+            <input id="birth" type="date" min="1920-01-01">
+          </div>
+          <div class="q">
+            <div class="q-num">Pregunta 3 de 3</div>
+            <h3 id="color-q">¿Cuál es tu color favorito?</h3>
+            <div class="swatches" role="radiogroup" aria-labelledby="color-q"></div>
+            <label class="custom-color">
+              <input id="custom-color" type="color" value="#2f7de1">
+              ¿Otro? Elige cualquier color
+            </label>
+          </div>
+          <p class="err" role="alert"></p>
+          <div class="nav">
+            <button type="button" class="sr-btn ghost" data-prev>Atrás</button>
+            <button type="button" class="sr-btn" data-next>Siguiente</button>
+          </div>
+        </div>
+
+        <div class="result" hidden aria-live="polite">
+          <div class="car-stage"></div>
+          <div class="res-info"></div>
+          <ul class="why"></ul>
+          <div class="alts"><p>También van contigo</p><div class="row"></div></div>
+          <div class="res-actions">
+            <button type="button" class="sr-btn ghost" data-repaint>Cambiar color</button>
+            <button type="button" class="sr-btn" data-restart>Volver a girar</button>
+          </div>
+        </div>
+      </div>
+      <p class="disclaimer">
+        Experiencia de entretenimiento sin afiliación con BMW. Precios “desde” de referencia tomados de autosnuevos.mx y my-car.mx;
+        confírmalos con un distribuidor autorizado.
+      </p>
     </section>
 
     <section class="card" id="ai-courses">
@@ -446,5 +549,6 @@
     new MutationObserver(() => charts.forEach(applyTheme))
       .observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   </script>
+  <script src="bmw.js"></script>
 </body>
 </html>
